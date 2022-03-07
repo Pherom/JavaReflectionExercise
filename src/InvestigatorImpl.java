@@ -1,11 +1,11 @@
-import reflection.api.Investigator
+import reflection.api.Investigator;
 
 import java.lang.reflect.*;
 import java.util.HashSet;
 import java.util.Set;
 
 public class InvestigatorImpl implements Investigator{
-    private Class<?> suspect;
+    private Class suspect;
     private Object instance;
 
     public InvestigatorImpl() {}
