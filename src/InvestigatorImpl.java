@@ -1,5 +1,7 @@
 import reflection.api.Investigator
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -42,7 +44,12 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public int getCountOfConstantFields() {
-        return 0;
+        int count = 0;
+        Field[] fields = suspect.getDeclaredFields();
+        for(Field field : fields)
+            if(Modifier.isFinal(field.getModifiers()))
+                count++;
+        return count;
     }
 
     @Override
