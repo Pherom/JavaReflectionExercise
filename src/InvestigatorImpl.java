@@ -76,7 +76,7 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public boolean isParentClassAbstract() {
-        return false;
+        return isExtending() && Modifier.isAbstract(suspect.getSuperclass().getModifiers());
     }
 
     @Override
