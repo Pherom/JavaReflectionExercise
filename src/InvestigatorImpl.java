@@ -80,20 +80,20 @@ public class InvestigatorImpl implements Investigator{
     }
 
     //Recursive helper method for the getNamesOfAllFieldsIncludingInheritanceChain() method
-    private Set<String> getNamesOfAllFieldsIncludingInheritanceChainRec(Class<?> clazz)
+    private Set<String> getNamesOfAllFieldsIncludingInheritanceChain(Class<?> clazz)
     {
         Set<String> fieldNames = new HashSet<>();
         Class<?> superclass = clazz.getSuperclass();
         for(Field field : clazz.getDeclaredFields())
             fieldNames.add(field.getName());
         if(superclass != null && superclass != Object.class)
-            fieldNames.addAll(getNamesOfAllFieldsIncludingInheritanceChainRec(superclass));
+            fieldNames.addAll(getNamesOfAllFieldsIncludingInheritanceChain(superclass));
         return fieldNames;
     }
 
     @Override
     public Set<String> getNamesOfAllFieldsIncludingInheritanceChain() {
-        return getNamesOfAllFieldsIncludingInheritanceChainRec(suspect);
+        return getNamesOfAllFieldsIncludingInheritanceChain(suspect);
     }
 
     @Override
@@ -135,6 +135,7 @@ public class InvestigatorImpl implements Investigator{
         return null;
     }
 
+    //Recursive helper method for the getInheritanceChain(String) method
     private String getInheritanceChain(Class<?> clazz, String delimiter)
     {
         Class<?> superclass = clazz.getSuperclass();
