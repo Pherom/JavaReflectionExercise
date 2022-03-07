@@ -23,12 +23,12 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public int getTotalNumberOfConstructors() {
-        return 0;
+        return suspect.getDeclaredConstructors().length;
     }
 
     @Override
     public int getTotalNumberOfFields() {
-        return 0;
+        return suspect.getDeclaredFields().length;
     }
 
     @Override
