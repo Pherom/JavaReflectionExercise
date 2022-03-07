@@ -1,6 +1,7 @@
 import reflection.api.Investigator
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 public class InvestigatorImpl implements Investigator{
     private Class<?> suspect;
+    private Object instance;
 
     public InvestigatorImpl() {}
 
@@ -18,6 +20,7 @@ public class InvestigatorImpl implements Investigator{
     @Override
     public void load(Object anInstanceOfSomething) {
         suspect = anInstanceOfSomething.getClass();
+        instance = anInstanceOfSomething;
     }
 
     @Override
@@ -98,6 +101,15 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public int invokeMethodThatReturnsInt(String methodName, Object... args) {
+        for(Method method : suspect.getDeclaredMethods())
+            if(method.getName().equals(methodName)) {
+                method.setAccessible(true);
+                try {
+                    return (int) method.invoke(instance, args);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         return 0;
     }
 
