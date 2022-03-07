@@ -65,7 +65,8 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public boolean isExtending() {
-        return false;
+        Class<?> superclass = suspect.getSuperclass();
+        return superclass != null && superclass != Object.class;
     }
 
     @Override
