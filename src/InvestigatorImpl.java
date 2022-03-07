@@ -71,7 +71,7 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public String getParentClassSimpleName() {
-        return null;
+        return isExtending() ? suspect.getSuperclass().getSimpleName() : null;
     }
 
     @Override
