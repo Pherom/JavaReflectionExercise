@@ -1,6 +1,7 @@
 import reflection.api.Investigator
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Set;
@@ -54,7 +55,12 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public int getCountOfStaticMethods() {
-        return 0;
+        int count = 0;
+        Method[] methods = suspect.getDeclaredMethods();
+        for(Method method : methods)
+            if(Modifier.isStatic(method.getModifiers()))
+                count++;
+        return count;
     }
 
     @Override
