@@ -100,7 +100,6 @@ public class InvestigatorImpl implements Investigator{
     public int invokeMethodThatReturnsInt(String methodName, Object... args) {
         for(Method method : suspect.getDeclaredMethods())
             if(method.getName().equals(methodName)) {
-                method.setAccessible(true);
                 try {
                     return (int) method.invoke(instance, args);
                 } catch (Exception e) {
@@ -114,7 +113,6 @@ public class InvestigatorImpl implements Investigator{
     public Object createInstance(int numberOfArgs, Object... args) {
         for(Constructor<?> constructor : suspect.getDeclaredConstructors())
             if(constructor.getParameterCount() == numberOfArgs) {
-                constructor.setAccessible(true);
                 try {
                     return constructor.newInstance(args);
                 } catch (Exception e) {
