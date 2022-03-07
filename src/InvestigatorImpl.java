@@ -1,9 +1,6 @@
 import reflection.api.Investigator
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
+import java.lang.reflect.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -115,6 +112,15 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public Object createInstance(int numberOfArgs, Object... args) {
+        for(Constructor<?> constructor : suspect.getDeclaredConstructors())
+            if(constructor.getParameterCount() == numberOfArgs) {
+                constructor.setAccessible(true);
+                try {
+                    return constructor.newInstance(args);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         return null;
     }
 
