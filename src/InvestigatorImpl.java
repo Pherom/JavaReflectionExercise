@@ -1,5 +1,6 @@
 import reflection.api.Investigator
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class InvestigatorImpl implements Investigator{
@@ -33,7 +34,10 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public Set<String> getAllImplementedInterfaces() {
-        return null;
+        Set<String> implementedInterfaceNames = new HashSet<>();
+        for(Class<?> implementedInterface : suspect.getInterfaces())
+            implementedInterfaceNames.add(implementedInterface.getSimpleName());
+        return implementedInterfaceNames;
     }
 
     @Override
