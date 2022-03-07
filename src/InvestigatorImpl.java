@@ -79,9 +79,21 @@ public class InvestigatorImpl implements Investigator{
         return isExtending() && Modifier.isAbstract(suspect.getSuperclass().getModifiers());
     }
 
+    //Recursive helper method for the getNamesOfAllFieldsIncludingInheritanceChain() method
+    private Set<String> getNamesOfAllFieldsIncludingInheritanceChainRec(Class<?> clazz)
+    {
+        Set<String> fieldNames = new HashSet<>();
+        Class<?> superclass = clazz.getSuperclass();
+        for(Field field : clazz.getDeclaredFields())
+            fieldNames.add(field.getName());
+        if(superclass != null && superclass != Object.class)
+            fieldNames.addAll(getNamesOfAllFieldsIncludingInheritanceChainRec(superclass));
+        return fieldNames;
+    }
+
     @Override
     public Set<String> getNamesOfAllFieldsIncludingInheritanceChain() {
-        return null;
+        return getNamesOfAllFieldsIncludingInheritanceChainRec(suspect);
     }
 
     @Override
