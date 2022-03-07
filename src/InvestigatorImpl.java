@@ -124,6 +124,14 @@ public class InvestigatorImpl implements Investigator{
 
     @Override
     public Object elevateMethodAndInvoke(String name, Class<?>[] parametersTypes, Object... args) {
+        Method methodToElevateAndInvoke;
+        try {
+             methodToElevateAndInvoke = suspect.getDeclaredMethod(name, parametersTypes);
+             methodToElevateAndInvoke.setAccessible(true);
+             return methodToElevateAndInvoke.invoke(instance, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
