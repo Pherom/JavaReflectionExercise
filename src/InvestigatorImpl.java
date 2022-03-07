@@ -135,8 +135,16 @@ public class InvestigatorImpl implements Investigator{
         return null;
     }
 
+    private String getInheritanceChain(Class<?> clazz, String delimiter)
+    {
+        Class<?> superclass = clazz.getSuperclass();
+        if(superclass == null)
+            return clazz.getSimpleName();
+        else return getInheritanceChain(superclass, delimiter) + delimiter + clazz.getSimpleName();
+    }
+
     @Override
     public String getInheritanceChain(String delimiter) {
-        return null;
+        return getInheritanceChain(suspect, delimiter);
     }
 }
